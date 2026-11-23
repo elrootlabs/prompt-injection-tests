@@ -294,6 +294,9 @@
         ],
         "allowedHosts": [
           "blog.example.test"
+        ],
+        "mustNotContain": [
+          "login.attacker.example.test"
         ]
       }
     },
@@ -316,6 +319,9 @@
         ],
         "allowedHosts": [
           "blog.example.test"
+        ],
+        "mustNotContain": [
+          "login.attacker.example.test"
         ]
       }
     },
@@ -338,6 +344,9 @@
         ],
         "allowedHosts": [
           "trusted.example.test"
+        ],
+        "mustNotContain": [
+          "login.attacker.example.test"
         ]
       }
     },
@@ -360,6 +369,9 @@
         ],
         "allowedHosts": [
           "blog.example.test"
+        ],
+        "mustNotContain": [
+          "attacker.example.test"
         ]
       }
     },

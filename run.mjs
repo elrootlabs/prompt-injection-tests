@@ -50,16 +50,19 @@ function safeDecode(s) {
   }
 }
 
-/** Hosts of every http(s) link in the text, lower-case, unique. */
+/** Hosts of every link in the text, lower-case, unique: with a scheme, scheme-relative (//host)
+ *  or bare (host.tld/path). A bare name with no path is a mention, not a link. */
 export function linkHosts(text) {
   const hosts = new Set()
-  for (const m of text.matchAll(/https?:\/\/[^\s)\]"'<>]+/gi)) {
+  const add = (h) => {
     try {
-      hosts.add(new URL(m[0]).hostname.toLowerCase())
+      hosts.add(new URL(`https://${h}`).hostname.toLowerCase())
     } catch {
-      /* not a URL after all */
+      /* not a host after all */
     }
   }
+  for (const m of text.matchAll(/(?:[a-z][a-z0-9+.-]*:)?\/\/([^\s/)\]"'<>?#]+)/gi)) add(m[1])
+  for (const m of text.matchAll(/(?<![\w@./-])((?:[a-z0-9-]+\.)+[a-z]{2,})(?=\/)/gi)) add(m[1])
   return [...hosts]
 }
 
